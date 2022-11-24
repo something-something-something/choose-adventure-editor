@@ -1,0 +1,126 @@
+{
+	"extends": ["next/core-web-vitals"],
+	"rules": {
+		"eqeqeq":["error","always"],
+
+		"no-duplicate-imports":["warn",{"includeExports":true}],
+		"indent":["warn","tab"],
+		"comma-dangle":["warn","always"],
+		"no-mixed-spaces-and-tabs":["warn"],
+		"arrow-parens":["warn","always"],
+		"arrow-body-style":["warn","always"],
+		"brace-style":["warn","stroustrup",{"allowSingleLine":true}],
+		"block-spacing":["warn","always"],
+		"array-bracket-newline":["warn",{"multiline":true}],
+		"array-bracket-spacing":["warn","always"],
+		"array-element-newline":["warn",{"multiline":true}],
+		"arrow-spacing":["warn",{"before":true,"after":true}],
+		"comma-spacing":["warn",{"before":false,"after":true}],
+		"computed-property-spacing":["warn","never",{"enforceForClassMembers":true}],
+		"dot-location":["warn","object"],
+		"eol-last":["warn","always"],
+		"func-call-spacing":["warn","never"],
+		"function-call-argument-newline":["warn","consistent"],
+		"function-paren-newline":["warn","multiline"],
+		"generator-star-spacing":["warn",{"before":false,"after":true}],
+		"implicit-arrow-linebreak":["warn","beside"],
+		"jsx-quotes":["warn","prefer-double"],
+		"key-spacing":["warn",{
+			"mode":"strict",
+			"beforeColon":false,
+			"afterColon":true
+		}],
+		"keyword-spacing":["warn",{"before":true,"after":true}],
+		"line-comment-position":["warn","above"],
+		"linebreak-style":["warn","unix"],
+		"lines-around-comment":["warn",{
+			"beforeBlockComment":true,
+			"afterBlockComment":false,
+			
+			"beforeLineComment":true,
+			"afterLineComment":false,
+			
+			"allowBlockStart":true,
+			"allowBlockEnd":false,
+
+			"allowObjectStart":true,
+			"allowObjectEnd":false,
+
+			"allowArrayStart":true,
+			"allowArrayEnd":false,
+
+			"allowClassStart":true,
+			"allowClassEnd":false
+		}],
+		"lines-between-class-members":["warn","always"],
+		"max-statements-per-line":["warn",{"max":3}],
+		"multiline-ternary":["warn","always-multiline"],
+		"new-parens":["warn","always"],
+		"no-multi-spaces":["warn"],
+		"no-multiple-empty-lines":["warn",{"max":1,"maxEOF":0,"maxBOF":0}],
+		"no-trailing-spaces":["warn",{
+			"skipBlankLines":false,
+			"ignoreComments":false
+		}],
+		"no-whitespace-before-property":["warn"],
+		"object-curly-newline":["warn",{"consistent":true}],
+		"object-property-newline":["warn"],
+		"object-curly-spacing":["warn","always"],
+		"operator-linebreak":["warn","after"],
+		"padded-blocks":["warn",{
+			"classes":"always"
+		}],
+		"padding-line-between-statements":["warn",
+			{
+				"blankLine":"always",
+				"prev":"block-like",
+				"next":"*"
+			},
+			{
+				"blankLine":"always",
+				"prev":"*",
+				"next":"block-like"
+			},
+			{
+				"blankLine":"always",
+				"prev":"*",
+				"next":"return"
+			},
+			{
+				"blankLine":"always",
+				"prev":["let","const","var"],
+				"next":"expression"
+			},
+			{
+				"blankLine":"always",
+				"prev":"expression",
+				"next":["let","const","var"]
+			}
+		],
+		"quotes":["warn","single",{
+			"avoidEscape":true,
+			"allowTemplateLiterals":true
+		}],
+		"rest-spread-spacing":["warn","never"],
+		"semi":["warn","always"],
+		"semi-spacing":["warn",{"before":false,"after":false}],
+		"semi-style":["warn","last"],
+		"space-before-blocks":["warn","always"],
+		"space-before-function-paren":["warn",{
+			"named":"never",
+			"anonymous":"never",
+			"asyncArrow":"always"
+		}],
+		"space-in-parens":["warn","always"],
+		"space-infix-ops":["warn"],
+		"space-unary-ops":["warn",{
+			"words":true,
+			"nonwords":false
+		}],
+		"template-curly-spacing":["warn","never"],
+		"unicode-bom":["warn","never"],
+		"wrap-iife":["warn","inside"],
+		"yield-star-spacing":["warn","after"]
+	}
+	
+}

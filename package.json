@@ -1,0 +1,27 @@
+{
+	"name": "choose-adventure-editor",
+	"packageManager": "pnpm@7.17.0",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "next dev",
+		"lint": "next lint -d app -d components",
+		"lintfix": "next lint -d app -d components --fix"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "UNLICENSED",
+	"dependencies": {
+		"next": "^13.0.4",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.9",
+		"@types/react": "18.0.25",
+		"eslint": "8.28.0",
+		"eslint-config-next": "13.0.4",
+		"typescript": "4.9.3"
+	}
+}
