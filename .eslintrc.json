@@ -3,6 +3,7 @@
 	"rules": {
 		"eqeqeq":["error","always"],
 
+		"curly":["warn"],
 		"no-duplicate-imports":["warn",{"includeExports":true}],
 		"indent":["warn","tab"],
 		"comma-dangle":["warn","always"],
@@ -34,10 +35,10 @@
 		"line-comment-position":["warn","above"],
 		"linebreak-style":["warn","unix"],
 		"lines-around-comment":["warn",{
-			"beforeBlockComment":true,
+			"beforeBlockComment":false,
 			"afterBlockComment":false,
 			
-			"beforeLineComment":true,
+			"beforeLineComment":false,
 			"afterLineComment":false,
 			
 			"allowBlockStart":true,
@@ -68,6 +69,8 @@
 		"object-curly-spacing":["warn","always"],
 		"operator-linebreak":["warn","after"],
 		"padded-blocks":["warn",{
+			"blocks":"never",
+			"switches":"never",
 			"classes":"always"
 		}],
 		"padding-line-between-statements":["warn",
@@ -95,6 +98,36 @@
 				"blankLine":"always",
 				"prev":"expression",
 				"next":["let","const","var"]
+			},
+			{
+				"blankLine":"always",
+				"prev":"directive",
+				"next":"*"
+			},
+			{
+				"blankLine":"always",
+				"prev":"*",
+				"next":"directive"
+			},
+			{
+				"blankLine":"never",
+				"prev":"directive",
+				"next":"directive"
+			},
+			{
+				"blankLine":"always",
+				"prev":"import",
+				"next":"*"
+			},
+			{
+				"blankLine":"always",
+				"prev":"*",
+				"next":"import"
+			},
+			{
+				"blankLine":"never",
+				"prev":"import",
+				"next":"import"
 			}
 		],
 		"quotes":["warn","single",{
