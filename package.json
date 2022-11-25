@@ -6,8 +6,9 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "next dev",
-		"lint": "next lint -d app -d components",
-		"lintfix": "next lint -d app -d components --fix"
+		"build":"next build && next export",
+		"lint": "next lint",
+		"lintfix": "next lint --fix"
 	},
 	"keywords": [],
 	"author": "",

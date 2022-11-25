@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState, } from 'react';
+import React, { useEffect, useState, } from 'react';
 
-export default function ClientSideOnly( props ) {
+export default function ClientSideOnly( props :{children?:React.ReactNode} ) {
 	const [ isServer, setIsServer, ] = useState( true );
 
 	useEffect( () => {
