@@ -3,225 +3,8 @@
 import React, { Dispatch, useContext, useReducer, useState, } from 'react';
 import Link from 'next/link';
 import ClientSideOnly from './ClientSideOnly';
-
-interface AdventureGraphState{
-	pages:AdventurePage[]
-};
-
-interface AdventurePage{
-	uuid:string
-	title:string
-	text:string
-	buttons:AdventurePageButton[]
-}
-
-interface AdventurePageButton{
-		uuid:string
-		text:string
-		pageUUID:string
-}
-type AdventureGraphCommand =AdventureGraphCommandAddPage |
- AdventureGraphCommandDeletePage|
- AdventureGraphCommandMovePageAbovePage|
- AdventureGraphCommandUpdatePageTitle |
- AdventureGraphCommandUpdatePageText|
- AdventureGraphCommandAddButton;
-
-interface AdventureGraphCommandBase{
-	command:string
-}
-
-interface AdventureGraphCommandAddPage extends AdventureGraphCommandBase{
-	command:'AddPage'
-}
-
-interface AdventureGraphCommandDeletePage extends AdventureGraphCommandBase{
-	command:'DeletePage'
-	pageUUID:string
-}
-
-interface AdventureGraphCommandMovePageAbovePage extends AdventureGraphCommandBase{
-	command:'MovePageAbovePage'
-	pageToMoveUUID:string
-	pageToBeBelowUUID:string
-}
-
-interface AdventureGraphCommandUpdatePageTitle extends AdventureGraphCommandBase{
-	command:'UpdatePageTitle'
-	pageUUID:string
-	title:string
-}
-
-interface AdventureGraphCommandUpdatePageText extends AdventureGraphCommandBase{
-	command:'UpdatePageText'
-	pageUUID:string
-	text:string
-}
-
-interface AdventureGraphCommandAddButton extends AdventureGraphCommandBase{
-	command:'AddButton'
-	parentPageUUID:string
-	navigateToPageUUID:string
-	text?:string
-}
-
-function adventureGraphReducer( currentSate:AdventureGraphState, command :AdventureGraphCommand ) {
-	if ( command.command === 'AddPage' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerAddPage( currentSate.pages, command ),
-		};
-	}
-	else if ( command.command === 'DeletePage' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerDeletePage( currentSate.pages, command ),
-		};
-	}
-	else if ( command.command === 'MovePageAbovePage' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerMovePageAbovePage( currentSate.pages, command ),
-		};
-	}
-
-	else if ( command.command === 'UpdatePageTitle' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerUpdatePageTitle( currentSate.pages, command ),
-		};
-	}
-
-	else if ( command.command === 'UpdatePageText' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerUpdatePageText( currentSate.pages, command ),
-		};
-	}
-
-	else if ( command.command === 'AddButton' ) {
-		return {
-			...currentSate,
-			pages: adventureGraphReducerAddButton( currentSate.pages, command ),
-		};
-	}
-
-	return currentSate;
-}
-
-function adventureGraphReducerAddPage( currentPages:AdventurePage[], command :AdventureGraphCommandAddPage ):AdventurePage[] {
-	return [ ...currentPages, makeNewBlankPage(), ];
-}
-
-function adventureGraphReducerDeletePage( currentPages:AdventurePage[], command:AdventureGraphCommandDeletePage ):AdventurePage[] {
-	return currentPages.flatMap( ( p ) => {
-		if ( p.uuid === command.pageUUID ) {
-			return [];
-		}
-		else {
-			return {
-				...p,
-				buttons: p.buttons.filter( ( b ) => {
-					return b.pageUUID !== command.pageUUID;
-				} ),
-			};
-		}
-	} );
-}
-
-function adventureGraphReducerMovePageAbovePage( currentPages:AdventurePage[], command:AdventureGraphCommandMovePageAbovePage ):AdventurePage[] {
-	if ( command.pageToBeBelowUUID === command.pageToMoveUUID ) {
-		return currentPages;
-	}
-
-	const pageToMove = currentPages.find( ( p ) => {
-		return p.uuid === command.pageToMoveUUID;
-	} );
-
-	if ( pageToMove === undefined ) {
-		return currentPages;
-	}
-
-	return currentPages.flatMap( ( p ) => {
-		if ( p.uuid === command.pageToBeBelowUUID ) {
-			return [ pageToMove, p, ];
-		}
-		else if ( p.uuid === command.pageToMoveUUID ) {
-			return [];
-		}
-
-		return p;
-	} );
-}
-
-function adventureGraphReducerUpdatePageTitle( currentPages:AdventurePage[], command :AdventureGraphCommandUpdatePageTitle ):AdventurePage[] {
-	return currentPages.map( ( p ) => {
-		if ( p.uuid === command.pageUUID ) {
-			return {
-				...p,
-				title: command.title,
-			};
-		}
-		else {
-			return p;
-		}
-	} );
-}
-
-function adventureGraphReducerUpdatePageText( currentPages:AdventurePage[], command :AdventureGraphCommandUpdatePageText ):AdventurePage[] {
-	return currentPages.map( ( p ) => {
-		if ( p.uuid === command.pageUUID ) {
-			return {
-				...p,
-				text: command.text,
-			};
-		}
-		else {
-			return p;
-		}
-	} );
-}
-
-function adventureGraphReducerAddButton( currentPages:AdventurePage[], command :AdventureGraphCommandAddButton ):AdventurePage[] {
-	return currentPages.map( ( p ) => {
-		if ( p.uuid === command.parentPageUUID ) {
-			return {
-				...p,
-				buttons: [ ...p.buttons, makeNewButton( command.navigateToPageUUID, command.text ), ],
-			};
-		}
-		else {
-			return p;
-		}
-	} );
-}
-
-function makeUUID() {
-	return crypto.randomUUID();
-}
-
-function adventureGraphReducerInit() {
-	return {
-		pages: [ makeNewBlankPage(), ],
-	};
-}
-
-function makeNewBlankPage() :AdventurePage {
-	return {
-		uuid: makeUUID(),
-		title: 'New Page',
-		text: '',
-		buttons: [],
-	};
-}
-
-function makeNewButton( pageUUID:string, text?:string ) :AdventurePageButton {
-	return {
-		uuid: makeUUID(),
-		text: text ?? '',
-		pageUUID,
-	};
-}
+import { AdventureGraphCommand, adventureGraphReducer, adventureGraphReducerInit, AdventureGraphState, AdventurePage, } from './lib/AdventureGraph';
+import Adventure from './Adventure';
 
 type AdventureEditorDragItem=AdventureEditorDragItemPage
 
@@ -266,6 +49,21 @@ export default function AdventureEditor() {
 
 	return <ClientSideOnly>
 		<AdventureGraphDispatcher.Provider value={dispatchAdventureGraph}>
+
+			<input type="file" accept="application/json" onChange={( ev ) => {
+				if ( ev?.currentTarget?.files?.length === 1 ) {
+					//todo check if valid etcS
+					const file = ev.currentTarget.files[0];
+
+					( async () => {
+						dispatchAdventureGraph( {
+							command: 'LoadState',
+							state: JSON.parse( await file.text() ),
+						} );
+					} )();
+				}
+			}}/>
+			<br/>
 			<AdventureGraphEditorSetIsDragingPage.Provider value={setIsDragingPage}>
 				<AdventureGraphEditorSetCurrentEditPageUUID.Provider value={setCurrentEditPageUUID}>
 					<AdventureGraphEditorIsDragingPage.Provider value={isDragingPage}>
@@ -284,6 +82,14 @@ export default function AdventureEditor() {
 						<div>
 							{selectPageList}
 						</div>
+
+						<a
+							href={ `data:application/json;base64,${btoa( JSON.stringify( adventureGraph, null, '\t' ) )}`}
+							download={ adventureGraph.pages?.[0]?.title + '.json'}
+						>
+							Download Adventure
+						</a>
+						<Adventure adventureGraph={adventureGraph} startPageUUID={currentEditPageUUID}/>
 					</AdventureGraphEditorIsDragingPage.Provider>
 				</AdventureGraphEditorSetCurrentEditPageUUID.Provider>
 			</AdventureGraphEditorSetIsDragingPage.Provider>
@@ -306,7 +112,8 @@ function PageEditor( { page, }:{page:AdventurePage} ) {
 				} );
 			}}/>
 		</label>
-		<label>Title
+		<br/>
+		<label>Text<br/>
 			<textarea value={page.text} onChange={( ev ) => {
 				dispatchAdventureGraph( {
 					command: 'UpdatePageText',
@@ -331,14 +138,23 @@ function PageButtonsEditor( { page, }:{page:AdventurePage} ) {
 				}}>
 					<label>Title
 						<input value={b.text} onChange={( ev ) => {
-							// dispatchAdventureGraph( {
-							// 	command: 'UpdatePageText',
-							// 	pageUUID: page.uuid,
-							// 	text: ev.target.value,
-							// } );
+							dispatchAdventureGraph( {
+								command: 'SetButtonText',
+								pageUUID: page.uuid,
+								buttonUUID: b.uuid,
+								text: ev.target.value,
+							} );
 						}}/>
 					</label>
 					<label>Page: {adventureGraph.pages.find( ( p ) => { return p.uuid === b.pageUUID; } )?.title}</label>
+					<button type="button" onClick={() => {
+						dispatchAdventureGraph( {
+							command: 'DeleteButton',
+							pageUUID: page.uuid,
+							buttonUUID: b.uuid,
+
+						} );
+					}}>Delete</button>
 				</form>;
 			} )
 
