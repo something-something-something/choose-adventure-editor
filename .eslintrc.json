@@ -67,7 +67,7 @@
 		"object-curly-newline":["warn",{"consistent":true}],
 		"object-property-newline":["warn"],
 		"object-curly-spacing":["warn","always"],
-		"operator-linebreak":["warn","after"],
+		"operator-linebreak":["warn","before"],
 		"padded-blocks":["warn",{
 			"blocks":"never",
 			"switches":"never",

@@ -1,7 +1,8 @@
-import AdventureEditor from '../components/AdventureEditor';
+import Link from 'next/link';
 
 export default function HomePage() {
-	return <div>
-		<AdventureEditor/>
-	</div>;
+	return <>
+		<Link href="/play">Play an Adventure</Link> <br/>
+		<Link href="/editor">Go to editor</Link>
+	</>;
 }
