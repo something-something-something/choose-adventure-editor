@@ -2,7 +2,7 @@
 	"extends": ["next/core-web-vitals"],
 	"rules": {
 		"eqeqeq":["error","always"],
-
+		//TODO use typescript specific rules
 		"curly":["warn"],
 		"no-duplicate-imports":["warn",{"includeExports":true}],
 		"indent":["warn","tab"],
