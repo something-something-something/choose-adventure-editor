@@ -2,8 +2,10 @@
 	"name": "choose-adventure-editor",
 	"packageManager": "pnpm@7.17.0",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A choose your own adventure web app",
 	"main": "index.js",
+	"repository":"github.com:something-something-something/choose-adventure-editor",
+	"homepage":"https://choose-your-own-adventure.testing.ekrebs.com/",
 	"scripts": {
 		"dev": "next dev",
 		"build":"next build && next export",
